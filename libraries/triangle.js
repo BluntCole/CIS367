@@ -26,18 +26,11 @@ window.onload = function init() {
   // Error checking
   if (!gl) { alert('WebGL unavailable'); }
 
-
   var vertices = [
     vec2(R * Math.cos(angle), R * Math.sin(angle)),
     vec2(R * Math.cos(angle + 2 * Math.PI / 3), R * Math.sin(angle + 2 * Math.PI / 3)),
     vec2(R * Math.cos(angle + 4 * Math.PI / 3), R * Math.sin(angle + 4 * Math.PI / 3))
   ];
-
-  // var vertices2 = [
-  //   vec2(-1 - 0.5, -1 + Math.sin(angle) - 0.5),
-  //   vec2(0 - 0.5, 1 + Math.sin(angle)- 0.5),
-  //   vec2(1 - 0.5, -1 + Math.sin(angle)- 0.5)
-  // ];
 
   // configure WebGL
   gl.viewport(0, 0, canvas.width, canvas.height);
@@ -54,10 +47,6 @@ window.onload = function init() {
   var bufferID = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, bufferID);
   gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
-
-  // var bufferID2 = gl.createBuffer();
-  // gl.bindBuffer(gl.ARRAY_BUFFER, bufferID2);
-  // gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices2), gl.STATIC_DRAW);
 
   // set its position and render it
   var vPosition = gl.getAttribLocation(program, 'vPosition');
@@ -77,13 +66,6 @@ var vertices = [
     vec2(R * Math.cos(angle + 4 * Math.PI / 3), R * Math.sin(angle + 4 * Math.PI / 3))
 ];
 
-// var vertices2 = [
-//   vec2(-1 - 0.5, -1 + Math.sin(angle) - 0.5),
-//   vec2(0 - 0.5, 1 + Math.sin(angle)- 0.5),
-//   vec2(1 - 0.5, -1 + Math.sin(angle)- 0.5)
-// ];
-
-
   gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.DYNAMIC_DRAW);
  //gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices2), gl.DYNAMIC_DRAW);
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -93,17 +75,17 @@ var vertices = [
   changeColor();
 }
 
+// change the color value
 function changeColor() {
   let now = Date.now();
   if (now - lastClick < 1000) {
     return;
   }
   lastClick = now;
-  // change the color value
   var r = Math.random();
   var g = Math.random();
   var b = Math.random();
   var a = 1.0;
-  var color = [r, g, b, a];;
+  var color = [r, g, b, a];
   gl.uniform4fv(colorLoc, color);
 }
