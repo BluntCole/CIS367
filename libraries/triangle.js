@@ -32,6 +32,12 @@ window.onload = function init() {
     vec2(R * Math.cos(angle + 4 * Math.PI / 3), R * Math.sin(angle + 4 * Math.PI / 3))
   ];
 
+  // var vertices = [
+  //   vec2(-1, -1),
+  //   vec2(0, 1),
+  //   vec2(1, -1)
+  // ];
+
   // configure WebGL
   gl.viewport(0, 0, canvas.width, canvas.height);
   gl.clearColor(1.0, 1.0, 1.0, 1.0);
@@ -65,6 +71,12 @@ var vertices = [
     vec2(R * Math.cos(angle + 2 * Math.PI / 3), R * Math.sin(angle + 2 * Math.PI / 3)),
     vec2(R * Math.cos(angle + 4 * Math.PI / 3), R * Math.sin(angle + 4 * Math.PI / 3))
 ];
+
+// var vertices = [
+//   vec2(-1, -1),
+//   vec2(0, 1),
+//   vec2(1, -1)
+// ];
 
   gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.DYNAMIC_DRAW);
  //gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices2), gl.DYNAMIC_DRAW);
