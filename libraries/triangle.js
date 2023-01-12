@@ -12,8 +12,8 @@ var color = vec4(1.0, 0.0, 0.0, 1.0);
 var colorLoc;
 let lastClick = 0;
 var angle = 0;
-// var vertexVelocities = [vec2(1,1),vec2(-1,-1),vec2(1,-1)];
-// var vertexPositions = [vec2(-1, -1), vec2(0, 1), vec2(1, -1)];
+let R = 0.5;
+
 
 
 // This function executes our WebGL code AFTER the window is loaded.
@@ -28,10 +28,16 @@ window.onload = function init() {
 
 
   var vertices = [
-    vec2(-1, -1 + Math.sin(angle)),
-    vec2(0, 1 + Math.sin(angle)),
-    vec2(1, -1 + Math.sin(angle))
+    vec2(R * Math.cos(angle), R * Math.sin(angle)),
+    vec2(R * Math.cos(angle + 2 * Math.PI / 3), R * Math.sin(angle + 2 * Math.PI / 3)),
+    vec2(R * Math.cos(angle + 4 * Math.PI / 3), R * Math.sin(angle + 4 * Math.PI / 3))
   ];
+
+  // var vertices2 = [
+  //   vec2(-1 - 0.5, -1 + Math.sin(angle) - 0.5),
+  //   vec2(0 - 0.5, 1 + Math.sin(angle)- 0.5),
+  //   vec2(1 - 0.5, -1 + Math.sin(angle)- 0.5)
+  // ];
 
   // configure WebGL
   gl.viewport(0, 0, canvas.width, canvas.height);
@@ -49,6 +55,10 @@ window.onload = function init() {
   gl.bindBuffer(gl.ARRAY_BUFFER, bufferID);
   gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
 
+  // var bufferID2 = gl.createBuffer();
+  // gl.bindBuffer(gl.ARRAY_BUFFER, bufferID2);
+  // gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices2), gl.STATIC_DRAW);
+
   // set its position and render it
   var vPosition = gl.getAttribLocation(program, 'vPosition');
   gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
@@ -58,34 +68,27 @@ window.onload = function init() {
 
 // Render whatever is in our gl variable
 function render() {
-//   var scaleMatrix = mat2(0.5, 0,
-//     0, 0.5);
 
-//   for(let i = 0 ; i < vertexPositions.length ; i++){
-//     vertexPositions[i] =  mult(vertexPositions[i], scaleMatrix);
-// }
-//   for (let i = 0; i < vertexPositions.length; i++) {
-//     // update the position of the vertex
-//     vertexPositions[i] = add(vertexPositions[i],vertexVelocities[i]);
-//     // Check if the vertex is out of bounds
-//     if (vertexPositions[i][0] < -1 || vertexPositions[i][0] > 1) {
-//         vertexVelocities[i][0] = -vertexVelocities[i][0];
-//     }
-//     if (vertexPositions[i][1] < -1 || vertexPositions[i][1] > 1) {
-//         vertexVelocities[i][1] = -vertexVelocities[i][1];
-//     }
-// }
 angle += 0.008;
 
-vertices = [
-  vec2(-1, -1 + Math.sin(angle)),
-  vec2(0, 1 + Math.sin(angle)),
-  vec2(1, -1 + Math.sin(angle))
+var vertices = [
+  vec2(R * Math.cos(angle), R * Math.sin(angle)),
+    vec2(R * Math.cos(angle + 2 * Math.PI / 3), R * Math.sin(angle + 2 * Math.PI / 3)),
+    vec2(R * Math.cos(angle + 4 * Math.PI / 3), R * Math.sin(angle + 4 * Math.PI / 3))
 ];
 
+// var vertices2 = [
+//   vec2(-1 - 0.5, -1 + Math.sin(angle) - 0.5),
+//   vec2(0 - 0.5, 1 + Math.sin(angle)- 0.5),
+//   vec2(1 - 0.5, -1 + Math.sin(angle)- 0.5)
+// ];
+
+
   gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.DYNAMIC_DRAW);
+ //gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices2), gl.DYNAMIC_DRAW);
   gl.clear(gl.COLOR_BUFFER_BIT);
   gl.drawArrays(gl.TRIANGLES, 0, 3);
+
   requestAnimationFrame(render);
   changeColor();
 }
