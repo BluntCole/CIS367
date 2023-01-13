@@ -16,9 +16,14 @@
 </head>
 
 <body>
-  <script src="common/three.min.js"></script>
+  <script src="Common/three.min.js"></script>
+  <script src ="node_modules\three\examples\jsm\controls\OrbitControls.js"></script>
   <script>
-    
+
+    //Common/three.js-master/three.js-master/examples/jsm/controls/OrbitControls.js
+    import { OrbitControls } from 'node_module/three/exampes/jsm/controls/OrbitControls.js';
+
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -26,17 +31,20 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
+    const controls = new OrbitControls(camera, renderer.domElement);
+
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
-
     const edges = new THREE.EdgesGeometry(geometry);
     const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xff0000}));
     scene.add(line);
-
+    
     camera.position.z = 5;
+
+    controls.target = cube.position;
 
     function animate() {
       requestAnimationFrame(animate);
@@ -46,6 +54,8 @@
 
       cube.rotation.x += 0.005;
       cube.rotation.y += 0.005;
+
+      controls.update()
 
       renderer.render(scene, camera);
     };
