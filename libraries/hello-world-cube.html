@@ -4,6 +4,7 @@
 -->
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Hello world</title>
@@ -17,34 +18,94 @@
 
 <body>
   <script src="Common/three.min.js"></script>
-  <script src ="node_modules\three\examples\jsm\controls\OrbitControls.js"></script>
   <script>
 
     //Common/three.js-master/three.js-master/examples/jsm/controls/OrbitControls.js
-    import { OrbitControls } from 'node_module/three/exampes/jsm/controls/OrbitControls.js';
-
+    //import { OrbitControls } from 'node_module/three/exampes/jsm/controls/OrbitControls.js';
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    let currentColor = new THREE.Color();
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const controls = new OrbitControls(camera, renderer.domElement);
+    // const controls = new OrbitControls(camera, renderer.domElement);
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
+    const circgeo = new THREE.SphereGeometry(1, 32, 32);
+    const circmat = new THREE.MeshBasicMaterial({ color: 0xF1F039} );
+    const circ = new THREE.Mesh(circgeo, circmat);
+    const edg = new THREE.EdgesGeometry(circgeo);
+    const lin = new THREE.LineSegments(edg, new THREE.LineBasicMaterial({color: 0xFE1500}));
+    circ.position.x = Math.random() * 5 - 2.5;
+    circ.position.y = Math.random() * 5 - 2.5;
+    circ.position.z = Math.random() * 5 - 2.5;
+    scene.add(circ);
+    lin.position.x = circ.position.x
+    lin.position.y = circ.position.y
+    lin.position.z = circ.position.z
+    scene.add(circ);
+    scene.add(lin);
+
+    const newCube1 = new THREE.Mesh(geometry, material);
+    newCube1.position.x = Math.random() * 5 - 2.5;
+    newCube1.position.y = Math.random() * 5 - 2.5;
+    newCube1.position.z = Math.random() * 5 - 2.5;
+    scene.add(newCube1)
+
+    const newCube2 = new THREE.Mesh(geometry, material);
+    newCube2.position.x = Math.random() * 5 - 2.5;
+    newCube2.position.y = Math.random() * 5 - 2.5;
+    newCube2.position.z = Math.random() * 5 - 2.5;
+    scene.add(newCube2)
+
+    const newCube3 = new THREE.Mesh(geometry, material);
+    newCube3.position.x = Math.random() * 5 - 2.5;
+    newCube3.position.y = Math.random() * 5 - 2.5;
+    newCube3.position.z = Math.random() * 5 - 2.5;
+    scene.add(newCube3)
+
     const edges = new THREE.EdgesGeometry(geometry);
-    const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xff0000}));
+
+    const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xff0000 }));
     scene.add(line);
-    
+
+    //const edges3 = new THREE.EdgesGeometry(geometry);
+    const line1 = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xff0000 }));
+    line1.position.x = newCube1.position.x
+    line1.position.y = newCube1.position.y
+    line1.position.z = newCube1.position.z
+    scene.add(line1);
+
+    //const edges2 = new THREE.EdgesGeometry(geometry);
+    const line2 = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xff0000 }));
+    line2.position.x = newCube2.position.x
+    line2.position.y = newCube2.position.y
+    line2.position.z = newCube2.position.z
+    scene.add(line2);
+
+    //const edges3 = new THREE.EdgesGeometry(geometry);
+    const line3 = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xff0000 }));
+    line3.position.x = newCube3.position.x
+    line3.position.y = newCube3.position.y
+    line3.position.z = newCube3.position.z
+    scene.add(line3);
+
+
+
     camera.position.z = 5;
 
-    controls.target = cube.position;
+    //controls.target = cube.position;
+
+    currentColor.setHSL(Math.random(), 1, .05);
+    renderer.setClearColor(currentColor);
+
 
     function animate() {
       requestAnimationFrame(animate);
@@ -52,13 +113,54 @@
       line.rotation.x += 0.005;
       line.rotation.y += 0.005;
 
+      circ.rotation.x += 0.005;
+      circ.rotation.y += 0.005;
+
+      lin.rotation.x += 0.005;
+      lin.rotation.y += 0.005;
+
+      line1.rotation.x += 0.005;
+      line1.rotation.y += 0.005;
+
+      line2.rotation.x += 0.005;
+      line2.rotation.y += 0.005;
+
+      line3.rotation.x += 0.005;
+      line3.rotation.y += 0.005;
+
       cube.rotation.x += 0.005;
       cube.rotation.y += 0.005;
 
-      controls.update()
+      newCube1.rotation.x += 0.005;
+      newCube1.rotation.y += 0.005;
+
+      newCube2.rotation.x += 0.005;
+      newCube2.rotation.y += 0.005;
+
+      newCube3.rotation.x += 0.005;
+      newCube3.rotation.y += 0.005;
+
+      // ranMove(cube);
+      // ranMove(newCube1);
+      // ranMove(newCube2);
+      // ranMove(newCube3);
+      // ranMove(line);
+      // ranMove(line1);
+      // ranMove(line2);
+      // ranMove(line3);
+
+
+      //controls.update()
 
       renderer.render(scene, camera);
-    };
+    }
+
+    // function ranMove(moveCube){
+    //     // Generate random values for the x, y, and z position
+    //     moveCube.position.x += Math.random() * 5 - 2.5;
+    //     moveCube.position.y += Math.random() * 5 - 2.5;
+    //     moveCube.position.z += Math.random() * 5 - 2.5;
+    // };
 
     animate();
   </script>
