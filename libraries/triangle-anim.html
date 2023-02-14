@@ -11,17 +11,22 @@ The triangular hello world of WebGL
 <!-- Define our shaders -->
 <script id="vertex-shader" type="x-shader/x-vertex">
 attribute vec4 vPosition;
+uniform float x;
+uniform float y;
 
 void main() {
-  gl_Position = vPosition;
+gl_Position.x += x + vPosition.x;
+gl_Position.y += y + vPosition.y;
+gl_Position.z = 0.0;
+gl_Position.w = 1.0;
+
 }
 </script>
 <script id="fragment-shader" type="x-shader/x-fragment">
 precision mediump float;
-uniform vec4 color;
 
 void main() {
-  gl_FragColor = color;
+  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
 </script>
 
@@ -29,7 +34,7 @@ void main() {
 <script src="Common/initShaders.js"></script>
 <script src="Common/MV.js"></script>
 
-<script src="triangle.js"></script>
+<script src="triangle-anim.js"></script>
 
 </head>
 <body>
