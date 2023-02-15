@@ -10,6 +10,8 @@ attribute vec4 vPosition;
 uniform float theta;
 
 void main(){
+
+    //gl_Position = vPosition;
     float s = sin( theta );
     float c = cos( theta );
   
@@ -30,10 +32,10 @@ main()
 }
 </script>
 
-<script src="Common/webgl-utils.js"></script>
-<script src="Common/initShaders.js"></script>
-<script src="Common/MV.js"></script>
-<script src="gasket-extended.js"></script>
+<script type="text/javascript" src="Common/webgl-utils.js"></script>
+<script type="text/javascript" src="Common/initShaders.js"></script>
+<script type="text/javascript" src="Common/MV.js"></script>
+<script type="text/javascript" src="gasket-extended.js"></script>
 </head>
 
 <body>

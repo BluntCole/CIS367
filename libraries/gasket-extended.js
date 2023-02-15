@@ -64,7 +64,7 @@ function init()
     gl.enableVertexAttribArray( vPosition );
 
     thetaLoc = gl.getUniformLocation(program, "theta");
-    render();
+   // render();
 
         document.getElementById("slider").onchange = function(event) {
         numTimesToSubdivide = parseInt(event.target.value);
@@ -141,6 +141,8 @@ function render()
     theta += speed *.01
     gl.uniform1f(thetaLoc, theta);
     gl.drawArrays( gl.TRIANGLES, 0, points.length );
-    //points = [];
-    window.requestAnimFrame(render);
+    points = [];
+    //window.requestAnimFrame(render);
+    requestAnimFrame(init);
+    //window.requestAnimFrame(render);
 }
