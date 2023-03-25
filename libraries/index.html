@@ -27,11 +27,69 @@
     let boxes = [];
     const fov = 100;
     const near = 0.1;
-    const far = 10;
+    const far = 15;
     const camera = new THREE.PerspectiveCamera( fov, window.innerWidth / window.innerHeight, near, far );
 
+    camera.position.z = 5;
+    camera.position.y = 1;
+
+
     const renderer = new THREE.WebGLRenderer();
-  
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    
+    // Create a Sprite character
+    const spriteMap = new THREE.TextureLoader().load('Trollface_non-free.png');
+    const spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap });
+    const sprite = new THREE.Sprite(spriteMaterial);
+    sprite.position.set(0, 0, 0);
+    scene.add(sprite);
+
+    // Handle keyboard input
+    const keys = {};
+    document.addEventListener('keydown', (event) => {
+      keys[event.code] = true;
+    });
+    document.addEventListener('keyup', (event) => {
+      keys[event.code] = false;
+    });
+
+    // Update function to move the Sprite character
+    function update() {
+      if (keys['ArrowUp']) {
+        sprite.position.y += 0.1;
+      }
+      if (keys['ArrowDown']) {
+        sprite.position.y -= 0.1;
+      }
+      if (keys['ArrowLeft']) {
+        sprite.position.x -= 0.1;
+      }
+      if (keys['ArrowRight']) {
+        sprite.position.x += 0.1;
+      }
+
+      // Bound the Sprite character to the screen
+      const screen = {
+        left: -window.innerWidth / 2,
+        right: window.innerWidth / 2,
+        bottom: -window.innerHeight / 2,
+        top: window.innerHeight / 2,
+      };
+      if (sprite.position.x < screen.left) {
+        sprite.position.x = screen.left;
+      }
+      if (sprite.position.x > screen.right) {
+        sprite.position.x = screen.right;
+      }
+      if (sprite.position.y < screen.bottom) {
+        sprite.position.y = screen.bottom;
+      }
+      if (sprite.position.y > screen.top) {
+        sprite.position.y = screen.top;
+      }
+    }
+
     // Load Textures
     let floorWidth = 20;
     let floorHeight = 40;
@@ -92,6 +150,12 @@
       boxes.push(boxMesh);
     }
 
+    const geometry = new THREE.TorusGeometry(1, .5, 16, 100 );
+    const material = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true} );
+    const torus = new THREE.Mesh( geometry, material );
+    torus.position.set( 0, 4, -4 );
+    scene.add( torus );
+
     // Add the Lights
     // Ambient light is used to prevent the scene
     // from ever being too dark.
@@ -116,7 +180,10 @@
       for(let i = 0; i < boxes.length; i++) {
         boxes[i].rotateX(Math.PI/(100+i));
       }
+      torus.rotation.x += 0.01;
+      torus.rotation.y += 0.01;
       requestAnimationFrame( animate );
+      update();
       renderer.render( scene, camera );
     }
       animate();
