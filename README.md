@@ -6,3 +6,4 @@ Repository of my Computer Graphics course at GVSU
 - [rotating triangle](https://bluntcole.github.io/CIS367/libraries/triangle-rotate.html)
 - [clicking sierpinski](https://bluntcole.github.io/CIS367/libraries/sierpinski-click.html)
 - [extended gasket](https://bluntcole.github.io/CIS367/libraries/gasket-extended.html)
+- [HW3 - ThreeJS](https://bluntcole.github.io/CIS367/libraries/index.html)
